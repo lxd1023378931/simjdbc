@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databases>
+	<database id="default">
+		<Type>Mysql</Type>
+		<Host>localhost</Host>
+		<Port>3306</Port>
+		<Name>test</Name>
+		<UserName>root</UserName>
+		<Password>root</Password>
+		<InitPoolCount>5</InitPoolCount>
+		<MaxPoolCount>10</MaxPoolCount>
+	</database>
+	<database id="default1">
+		<Type>Mysql</Type>
+		<Host>localhost</Host>
+		<Port>3306</Port>
+		<Name>test</Name>
+		<UserName>root</UserName>
+		<Password>root</Password>
+		<InitPoolCount>5</InitPoolCount>
+		<MaxPoolCount>10</MaxPoolCount>
+	</database>
+</databases>
