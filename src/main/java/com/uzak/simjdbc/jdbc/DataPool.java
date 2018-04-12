@@ -26,8 +26,8 @@ public class DataPool implements DataSource {
 	private static Map<String, LinkedList<Connection>> pools = new HashMap<String, LinkedList<Connection>>();
 	private static Map<String, DataBase> databases = DatabaseXml.getDataBases();
 	private static final String DEFAULT_POOLNAME = "default";
-
-	private String mysql = "com.mysql.jdbc.Driver";
+	// 默认等待时间
+	private static final long DEFAULT_TIMEOUT = 5;
 
 	public DataPool() {
 		synchronized (databases) {
@@ -45,12 +45,9 @@ public class DataPool implements DataSource {
 
 	private synchronized Connection createConnection(DataBase db) {
 		try {
-			String url = "jdbc:" + db.getType().toLowerCase() + "://" + db.getHost() + ":" + db.getPort() + "/" + db.getName()
-					+ "?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC";
-			if ("mysql".equalsIgnoreCase(db.getType())) {
-				Class.forName(mysql);
-			}
-			Connection conn = DriverManager.getConnection(url, db.getUserName(), db.getPassword());
+			Class.forName(db.getDriver());
+			Connection conn = DriverManager.getConnection(getUrl(db), db.getUserName(), db.getPassword());
+			db.setCount(db.getCount() + 1);
 			return conn;
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
@@ -83,9 +80,15 @@ public class DataPool implements DataSource {
 			if (conn == null) {
 				if (db.getCount() < db.getMaxPoolCount()) {
 					conn = createConnection(db);
-					db.setCount(db.getCount() + 1);
 				} else {
-					// 如果线程达到最大数并且全部被占用，应该等待【待实现】
+					long timeout = db.getLoginTimeout() == 0 ? DEFAULT_TIMEOUT : db.getLoginTimeout();
+					long time = System.currentTimeMillis() + timeout * 1000;
+					while (System.currentTimeMillis() < time) {
+						conn = pool.removeFirst();
+						if (conn != null) {
+							break;
+						}
+					}
 				}
 			}
 			return conn;
@@ -126,6 +129,18 @@ public class DataPool implements DataSource {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	private String getUrl(DataBase db) {
+		String url = "";
+		if("mysql".equalsIgnoreCase(db.getType())) {
+			url = "jdbc:mysql://" + db.getHost() + ":" + db.getPort() + "/" + db.getName()
+			+ "?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC&useSSL=false";
+		}
+		// else if("oracle".equalsIgnoreCase(db.getType())) {
+		// url = "jdbc:oracle:thin:@"+db.getHost()+":"+db.getPort()+":"+db.getName();
+		// }
+		return url;
 	}
 
 	public Connection getConnection(String username, String password) throws SQLException {

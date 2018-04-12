@@ -27,6 +27,7 @@ public class DatabaseXml {
 				String id = ele.getAttributeValue("id");
 				DataBase db = new DataBase();
 				db.setType(ele.getChildText("Type"));
+				db.setDriver(ele.getChildText("Driver"));
 				db.setHost(ele.getChildText("Host"));
 				db.setPort(ele.getChildText("Port"));
 				db.setName(ele.getChildText("Name"));
@@ -34,6 +35,7 @@ public class DatabaseXml {
 				db.setPassword(ele.getChildText("Password"));
 				db.setInitPoolCount(Integer.parseInt(ele.getChildText("InitPoolCount")));
 				db.setMaxPoolCount(Integer.parseInt(ele.getChildText("MaxPoolCount")));
+				db.setLoginTimeout(Long.parseLong(ele.getChildText("LoginTimeout")));
 				dataBases.put(id, db);
 			}
 		} catch (Exception e) {

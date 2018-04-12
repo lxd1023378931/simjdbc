@@ -2,6 +2,7 @@
 <databases>
 	<database id="default">
 		<Type>Mysql</Type>
+		<Driver>com.mysql.cj.jdbc.Driver</Driver>
 		<Host>localhost</Host>
 		<Port>3306</Port>
 		<Name>test</Name>
@@ -9,9 +10,11 @@
 		<Password>root</Password>
 		<InitPoolCount>5</InitPoolCount>
 		<MaxPoolCount>10</MaxPoolCount>
+		<LoginTimeout>10</LoginTimeout>
 	</database>
 	<database id="default1">
 		<Type>Mysql</Type>
+		<Driver>com.mysql.cj.jdbc.Driver</Driver>
 		<Host>localhost</Host>
 		<Port>3306</Port>
 		<Name>test</Name>
@@ -19,5 +22,6 @@
 		<Password>root</Password>
 		<InitPoolCount>5</InitPoolCount>
 		<MaxPoolCount>10</MaxPoolCount>
+		<LoginTimeout>10</LoginTimeout>
 	</database>
 </databases>

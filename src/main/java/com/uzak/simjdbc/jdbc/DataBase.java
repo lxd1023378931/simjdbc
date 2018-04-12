@@ -9,6 +9,7 @@ package com.uzak.simjdbc.jdbc;
  */
 public class DataBase {
 	private String type;
+	private String driver;
 	private String host;
 	private String port;
 	private String name;
@@ -16,6 +17,7 @@ public class DataBase {
 	private String password;
 	private int initPoolCount;
 	private int maxPoolCount;
+	private long loginTimeout;
 
 	private int count;
 
@@ -25,6 +27,14 @@ public class DataBase {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public String getDriver() {
+		return driver;
+	}
+
+	public void setDriver(String driver) {
+		this.driver = driver;
 	}
 
 	public String getHost() {
@@ -81,6 +91,14 @@ public class DataBase {
 
 	public void setMaxPoolCount(int maxPoolCount) {
 		this.maxPoolCount = maxPoolCount;
+	}
+
+	public long getLoginTimeout() {
+		return loginTimeout;
+	}
+
+	public void setLoginTimeout(long loginTimeout) {
+		this.loginTimeout = loginTimeout;
 	}
 
 	public int getCount() {

@@ -69,6 +69,15 @@ public class DataProperties {
 		}
 	}
 
+	public long getLong(String key) {
+		Object o = get(key);
+		if (o != null && PatternUtil.decide(o.toString(), PatternUtil.DIGITAL)) {
+			return Long.parseLong(o.toString());
+		} else {
+			return 0L;
+		}
+	}
+
 	public float getFloat(String key) {
 		Object o = get(key);
 		if (o != null && PatternUtil.decide(o.toString(), PatternUtil.DECIMAL)) {
