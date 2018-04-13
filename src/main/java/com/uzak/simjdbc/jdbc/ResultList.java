@@ -41,6 +41,14 @@ public class ResultList {
 		return data;
 	}
 
+	public ResultRow get(int index) {
+		return data.get(index);
+	}
+
+	public int size() {
+		return data.size();
+	}
+
 	public void setData(List<ResultRow> data) {
 		this.data = data;
 	}

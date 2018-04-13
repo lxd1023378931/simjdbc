@@ -9,18 +9,30 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Q {
-	private StringBuilder sql = new StringBuilder("");
+/**
+ * @author 梁秀斗
+ * @mail 1023378931@qq.com
+ * @date 2018年4月14日
+ */
+public class Q implements SuperTranstion {
+	private StringBuilder sql = null;
 	private List<Object> params = new ArrayList<>();
-	DataPool dataPool = new DataPool();
 
 	public Q() {
+		this.sql = new StringBuilder("");
 	}
 
-	public Q(String sql, Object... param) {
-		this.sql.append(sql);
-		for (Object p : param) {
-			params.add(p);
+	public Q(String sql, Object... params) {
+		this.sql = new StringBuilder(sql);
+		for (Object p : params) {
+			this.params.add(p);
+		}
+	}
+
+	public void append(String sql, Object... param) {
+		this.sql.append(" " + sql + " ");
+		for (Object p : params) {
+			this.params.add(p);
 		}
 	}
 
@@ -162,6 +174,7 @@ public class Q {
 			}
 
 			conn = dataPool.getConnection(poolName);
+			System.out.println("Execute SQL:" + sql.toString()+" "+params);
 			state = conn.prepareStatement(sql.toString());
 			int i = 1;
 			for (Object o : params) {
@@ -182,7 +195,7 @@ public class Q {
 			e.printStackTrace();
 		} finally {
 			if (conn != null) {
-				dataPool.releaseConnection(conn);
+				SuperTranstion.dataPool.releaseConnection(conn);
 			}
 			try {
 				if (state != null) {
@@ -207,12 +220,17 @@ public class Q {
 		PreparedStatement state = null;
 		int index = 0;
 		try {
-			conn = dataPool.getConnection(poolName);
+			conn = SuperTranstion.dataPool.getConnection(poolName);
+			System.out.println("Execute SQL:" + sql.toString()+" "+params);
 			state = conn.prepareStatement(sql.toString());
 			int i = 1;
 			for (Object o : params) {
 				if (o instanceof Number) {
-					state.setFloat(i, ((Number) o).floatValue());
+					if (o.toString().contains(".")) {
+						state.setDouble(i, ((Number) o).doubleValue());
+					} else {
+						state.setLong(i, ((Number) o).longValue());
+					}
 				} else {
 					state.setString(i, o.toString());
 				}
@@ -247,11 +265,16 @@ public class Q {
 		String s = null;
 		try {
 			conn = dataPool.getConnection(poolName);
+			System.out.println("Execute SQL:" + sql.toString()+" "+params);
 			state = conn.prepareStatement(sql.toString());
 			int i = 1;
 			for (Object o : params) {
 				if (o instanceof Number) {
-					state.setFloat(i, ((Number) o).floatValue());
+					if (o.toString().contains(".")) {
+						state.setDouble(i, ((Number) o).doubleValue());
+					} else {
+						state.setLong(i, ((Number) o).longValue());
+					}
 				} else {
 					state.setString(i, o.toString());
 				}
@@ -299,11 +322,16 @@ public class Q {
 						+ sqll.substring(sqll.indexOf(m.group(1)) + m.group(1).length());
 			}
 			conn = dataPool.getConnection(poolName);
+			System.out.println("Execute SQL:" + sql.toString()+" "+params);
 			state = conn.prepareStatement(sqll);
 			int i = 1;
 			for (Object o : params) {
 				if (o instanceof Number) {
-					state.setFloat(i, ((Number) o).floatValue());
+					if (o.toString().contains(".")) {
+						state.setDouble(i, ((Number) o).doubleValue());
+					} else {
+						state.setLong(i, ((Number) o).longValue());
+					}
 				} else {
 					state.setString(i, o.toString());
 				}
