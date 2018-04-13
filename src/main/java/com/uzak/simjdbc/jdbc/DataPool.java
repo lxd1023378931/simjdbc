@@ -25,7 +25,7 @@ import com.uzak.simjdbc.io.DatabaseXml;
 public class DataPool implements DataSource {
 	private static Map<String, LinkedList<Connection>> pools = new HashMap<String, LinkedList<Connection>>();
 	private static Map<String, DataBase> databases = DatabaseXml.getDataBases();
-	private static final String DEFAULT_POOLNAME = "default";
+	public static final String DEFAULT_POOLNAME = "default";
 	// 默认等待时间
 	private static final long DEFAULT_TIMEOUT = 5;
 

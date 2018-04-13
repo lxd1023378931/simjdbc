@@ -117,11 +117,38 @@ public class Q {
 		}
 	}
 
+	public void orderby(String value) {
+		sql.append(" order by ? ASC ");
+		if (value != null) {
+			params.add(value.toString() + "%");
+		}
+	}
+
+	public void orderby(String value, int sort) {
+		sql.append(" order by ? ");
+		if (sort == 1) {
+			sql.append("DESC");
+		} else {
+			sql.append("ASC");
+		}
+		if (value != null) {
+			params.add(value.toString() + "%");
+		}
+	}
+
 	public ResultList executeResultList() {
 		return executePageResultList(0, 0);
 	}
 
+	public ResultList executeResultList(String poolName) {
+		return executePageResultList(0, 0, poolName);
+	}
+
 	public ResultList executePageResultList(int pageIndex, int pageSize) {
+		return executePageResultList(pageIndex, pageSize, DataPool.DEFAULT_POOLNAME);
+	}
+
+	public ResultList executePageResultList(int pageIndex, int pageSize, String poolName) {
 		Connection conn = null;
 		PreparedStatement state = null;
 		ResultSet result = null;
@@ -134,7 +161,7 @@ public class Q {
 				params.add(pageSize);
 			}
 
-			conn = dataPool.getConnection();
+			conn = dataPool.getConnection(poolName);
 			state = conn.prepareStatement(sql.toString());
 			int i = 1;
 			for (Object o : params) {
@@ -172,11 +199,15 @@ public class Q {
 	}
 
 	public int executeInt() {
+		return executeInt(DataPool.DEFAULT_POOLNAME);
+	}
+
+	public int executeInt(String poolName) {
 		Connection conn = null;
 		PreparedStatement state = null;
 		int index = 0;
 		try {
-			conn = dataPool.getConnection();
+			conn = dataPool.getConnection(poolName);
 			state = conn.prepareStatement(sql.toString());
 			int i = 1;
 			for (Object o : params) {
@@ -206,12 +237,16 @@ public class Q {
 	}
 
 	public String executeString() {
+		return executeString(DataPool.DEFAULT_POOLNAME);
+	}
+
+	public String executeString(String poolName) {
 		Connection conn = null;
 		PreparedStatement state = null;
 		ResultSet result = null;
 		String s = null;
 		try {
-			conn = dataPool.getConnection();
+			conn = dataPool.getConnection(poolName);
 			state = conn.prepareStatement(sql.toString());
 			int i = 1;
 			for (Object o : params) {
@@ -247,20 +282,23 @@ public class Q {
 	}
 
 	public int count() {
+		return count(DataPool.DEFAULT_POOLNAME);
+	}
+
+	public int count(String poolName) {
 		Connection conn = null;
 		PreparedStatement state = null;
 		ResultSet result = null;
 		int count = 0;
 		try {
 			String sqll = sql.toString();
-			System.out.println(sqll);
 			Pattern pattern = Pattern.compile("select(.*?)from");
-			Matcher m = pattern.matcher(sqll);  
-	        if(m.find()){  
-	        	sqll = sqll.substring(0, sqll.indexOf(m.group(1)))+" count(1) "+sqll.substring(sqll.indexOf(m.group(1))+m.group(1).length());
-	        }  
-			System.out.println(sqll);
-			conn = dataPool.getConnection();
+			Matcher m = pattern.matcher(sqll);
+			if (m.find()) {
+				sqll = sqll.substring(0, sqll.indexOf(m.group(1))) + " count(1) "
+						+ sqll.substring(sqll.indexOf(m.group(1)) + m.group(1).length());
+			}
+			conn = dataPool.getConnection(poolName);
 			state = conn.prepareStatement(sqll);
 			int i = 1;
 			for (Object o : params) {
