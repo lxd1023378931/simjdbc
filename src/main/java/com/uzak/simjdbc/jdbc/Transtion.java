@@ -15,7 +15,7 @@ import com.uzak.simjdbc.jdbc.dao.IBaseDao;
  * @mail 1023378931@qq.com
  * @date 2018年4月14日
  */
-public class Transtion implements SuperTranstion {
+public class Transtion extends SuperTranstion {
 	private List<Q> querys = new ArrayList<Q>();
 	private Connection conn = null;
 	public static final int INSERT = 1;
@@ -68,24 +68,25 @@ public class Transtion implements SuperTranstion {
 			PreparedStatement state = null;
 			String lastSql = "";
 			for (Q q : querys) {
-				System.out.println("Execute SQL:" + q.sql()+" "+q.params());
+				System.out.println("Execute SQL:" + q.sql() + " " + q.params());
 				if (!lastSql.equals(q.sql().replaceAll(" ", ""))) {
 					lastSql = q.sql().replaceAll(" ", "");
 					state = conn.prepareStatement(q.sql());
 				}
-				int i = 1;
-				for (Object o : q.params()) {
-					if (o instanceof Number) {
-						if (o.toString().contains(".")) {
-							state.setDouble(i, ((Number) o).doubleValue());
-						} else {
-							state.setLong(i, ((Number) o).longValue());
-						}
-					} else {
-						state.setString(i, o.toString());
-					}
-					i++;
-				}
+				setStateParams(state, q.params());
+				// int i = 1;
+				// for (Object o : q.params()) {
+				// if (o instanceof Number) {
+				// if (o.toString().contains(".")) {
+				// state.setDouble(i, ((Number) o).doubleValue());
+				// } else {
+				// state.setLong(i, ((Number) o).longValue());
+				// }
+				// } else {
+				// state.setString(i, o.toString());
+				// }
+				// i++;
+				// }
 				state.addBatch();
 				state.executeBatch();
 			}

@@ -1,5 +1,7 @@
 package schame;
 
+import java.util.Date;
+
 import com.uzak.simjdbc.jdbc.annocation.Column;
 import com.uzak.simjdbc.jdbc.annocation.Table;
 import com.uzak.simjdbc.jdbc.dao.BaseDao;
@@ -9,7 +11,7 @@ public class Test extends BaseDao {
 	@Column(primary = true)
 	private int id;
 	@Column
-	private String name;
+	private Date name;
 
 	public int getId() {
 		return id;
@@ -19,11 +21,11 @@ public class Test extends BaseDao {
 		this.id = id;
 	}
 
-	public String getName() {
+	public Date getName() {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(Date name) {
 		this.name = name;
 	}
 

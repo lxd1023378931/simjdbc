@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
  * @mail 1023378931@qq.com
  * @date 2018年4月14日
  */
-public class Q implements SuperTranstion {
+public class Q extends SuperTranstion {
 	private StringBuilder sql = null;
 	private List<Object> params = new ArrayList<>();
 
@@ -174,21 +174,22 @@ public class Q implements SuperTranstion {
 			}
 
 			conn = dataPool.getConnection(poolName);
-			System.out.println("Execute SQL:" + sql.toString()+" "+params);
+			System.out.println("Execute SQL:" + sql.toString() + " " + params);
 			state = conn.prepareStatement(sql.toString());
-			int i = 1;
-			for (Object o : params) {
-				if (o instanceof Number) {
-					if (o.toString().contains(".")) {
-						state.setDouble(i, ((Number) o).doubleValue());
-					} else {
-						state.setLong(i, ((Number) o).longValue());
-					}
-				} else {
-					state.setString(i, o.toString());
-				}
-				i++;
-			}
+			setStateParams(state, params);
+			// int i = 1;
+			// for (Object o : params) {
+			// if (o instanceof Number) {
+			// if (o.toString().contains(".")) {
+			// state.setDouble(i, ((Number) o).doubleValue());
+			// } else {
+			// state.setLong(i, ((Number) o).longValue());
+			// }
+			// } else {
+			// state.setString(i, o.toString());
+			// }
+			// i++;
+			// }
 			result = state.executeQuery();
 			resultList = new ResultList(result);
 		} catch (SQLException e) {
@@ -221,21 +222,22 @@ public class Q implements SuperTranstion {
 		int index = 0;
 		try {
 			conn = SuperTranstion.dataPool.getConnection(poolName);
-			System.out.println("Execute SQL:" + sql.toString()+" "+params);
+			System.out.println("Execute SQL:" + sql.toString() + " " + params);
 			state = conn.prepareStatement(sql.toString());
-			int i = 1;
-			for (Object o : params) {
-				if (o instanceof Number) {
-					if (o.toString().contains(".")) {
-						state.setDouble(i, ((Number) o).doubleValue());
-					} else {
-						state.setLong(i, ((Number) o).longValue());
-					}
-				} else {
-					state.setString(i, o.toString());
-				}
-				i++;
-			}
+			setStateParams(state, params);
+			// int i = 1;
+			// for (Object o : params) {
+			// if (o instanceof Number) {
+			// if (o.toString().contains(".")) {
+			// state.setDouble(i, ((Number) o).doubleValue());
+			// } else {
+			// state.setLong(i, ((Number) o).longValue());
+			// }
+			// } else {
+			// state.setString(i, o.toString());
+			// }
+			// i++;
+			// }
 			index = state.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -265,21 +267,22 @@ public class Q implements SuperTranstion {
 		String s = null;
 		try {
 			conn = dataPool.getConnection(poolName);
-			System.out.println("Execute SQL:" + sql.toString()+" "+params);
+			System.out.println("Execute SQL:" + sql.toString() + " " + params);
 			state = conn.prepareStatement(sql.toString());
-			int i = 1;
-			for (Object o : params) {
-				if (o instanceof Number) {
-					if (o.toString().contains(".")) {
-						state.setDouble(i, ((Number) o).doubleValue());
-					} else {
-						state.setLong(i, ((Number) o).longValue());
-					}
-				} else {
-					state.setString(i, o.toString());
-				}
-				i++;
-			}
+			setStateParams(state, params);
+			// int i = 1;
+			// for (Object o : params) {
+			// if (o instanceof Number) {
+			// if (o.toString().contains(".")) {
+			// state.setDouble(i, ((Number) o).doubleValue());
+			// } else {
+			// state.setLong(i, ((Number) o).longValue());
+			// }
+			// } else {
+			// state.setString(i, o.toString());
+			// }
+			// i++;
+			// }
 			result = state.executeQuery();
 			if (result.next()) {
 				s = result.getString(1);
@@ -322,21 +325,22 @@ public class Q implements SuperTranstion {
 						+ sqll.substring(sqll.indexOf(m.group(1)) + m.group(1).length());
 			}
 			conn = dataPool.getConnection(poolName);
-			System.out.println("Execute SQL:" + sql.toString()+" "+params);
+			System.out.println("Execute SQL:" + sql.toString() + " " + params);
 			state = conn.prepareStatement(sqll);
-			int i = 1;
-			for (Object o : params) {
-				if (o instanceof Number) {
-					if (o.toString().contains(".")) {
-						state.setDouble(i, ((Number) o).doubleValue());
-					} else {
-						state.setLong(i, ((Number) o).longValue());
-					}
-				} else {
-					state.setString(i, o.toString());
-				}
-				i++;
-			}
+			setStateParams(state, params);
+			// int i = 1;
+			// for (Object o : params) {
+			// if (o instanceof Number) {
+			// if (o.toString().contains(".")) {
+			// state.setDouble(i, ((Number) o).doubleValue());
+			// } else {
+			// state.setLong(i, ((Number) o).longValue());
+			// }
+			// } else {
+			// state.setString(i, o.toString());
+			// }
+			// i++;
+			// }
 			result = state.executeQuery();
 			if (result.next()) {
 				count = result.getInt(1);

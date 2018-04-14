@@ -17,7 +17,7 @@ import com.uzak.simjdbc.jdbc.annocation.Column;
 import com.uzak.simjdbc.jdbc.annocation.Table;
 import com.uzak.simjdbc.util.StringUtil;
 
-public class BaseDao implements IBaseDao, SuperTranstion {
+public class BaseDao extends SuperTranstion implements IBaseDao {
 
 	Class<? extends BaseDao> clazz = null;
 	Field[] fields = null;
@@ -210,7 +210,7 @@ public class BaseDao implements IBaseDao, SuperTranstion {
 	public boolean setValue(ResultRow rr) {
 		try {
 			for (Field field : fields) {
-				Class type = field.getType();
+				Class<?> type = field.getType();
 				String columnName = field.getName();
 				String method = "set" + columnName.substring(0, 1).toUpperCase() + columnName.substring(1);
 				Method getMethod = clazz.getMethod(method, type);
