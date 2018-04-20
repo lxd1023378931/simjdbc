@@ -1,4 +1,4 @@
-package com.uzak.simjdbc.jdbc;
+package com.uzak.simjdbc.jdbc.transtion;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -6,8 +6,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import com.uzak.simjdbc.jdbc.pool.DataPool;
+
 public abstract class SuperTranstion {
-	static DataPool dataPool = new DataPool();
+	protected static DataPool dataPool = new DataPool();
 
 	private static final String FORMAT = "yyyy-MM-dd HH:mm:ss";
 	private static SimpleDateFormat sdf = new SimpleDateFormat(FORMAT);

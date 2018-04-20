@@ -8,13 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.uzak.simjdbc.exception.NullPrimaryKeyException;
-import com.uzak.simjdbc.jdbc.DataPool;
-import com.uzak.simjdbc.jdbc.Q;
-import com.uzak.simjdbc.jdbc.ResultList;
-import com.uzak.simjdbc.jdbc.ResultRow;
-import com.uzak.simjdbc.jdbc.SuperTranstion;
 import com.uzak.simjdbc.jdbc.annocation.Column;
 import com.uzak.simjdbc.jdbc.annocation.Table;
+import com.uzak.simjdbc.jdbc.pool.DataPool;
+import com.uzak.simjdbc.jdbc.result.ResultList;
+import com.uzak.simjdbc.jdbc.result.ResultRow;
+import com.uzak.simjdbc.jdbc.transtion.Q;
+import com.uzak.simjdbc.jdbc.transtion.SuperTranstion;
 import com.uzak.simjdbc.util.StringUtil;
 
 public class BaseDao extends SuperTranstion implements IBaseDao {

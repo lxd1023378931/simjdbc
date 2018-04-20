@@ -1,7 +1,7 @@
 package com.uzak.simjdbc.jdbc.dao;
 
-import com.uzak.simjdbc.jdbc.Q;
-import com.uzak.simjdbc.jdbc.ResultRow;
+import com.uzak.simjdbc.jdbc.result.ResultRow;
+import com.uzak.simjdbc.jdbc.transtion.Q;
 
 /**
  * 实体类的基本数据操作

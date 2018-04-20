@@ -1,4 +1,4 @@
-package com.uzak.simjdbc.jdbc;
+package com.uzak.simjdbc.jdbc.transtion;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,6 +9,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import com.uzak.simjdbc.jdbc.dao.IBaseDao;
+import com.uzak.simjdbc.jdbc.pool.DataPool;
 
 /**
  * @author 梁秀斗

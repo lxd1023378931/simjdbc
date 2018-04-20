@@ -1,4 +1,4 @@
-package com.uzak.simjdbc.jdbc;
+package com.uzak.simjdbc.jdbc.result;
 
 import java.util.HashMap;
 import java.util.Map;

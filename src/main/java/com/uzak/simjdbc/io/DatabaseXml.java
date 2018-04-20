@@ -10,7 +10,7 @@ import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
 
-import com.uzak.simjdbc.jdbc.DataBase;
+import com.uzak.simjdbc.jdbc.pool.DataBase;
 
 public class DatabaseXml {
 	private static Map<String, DataBase> dataBases = new HashMap<String, DataBase>();

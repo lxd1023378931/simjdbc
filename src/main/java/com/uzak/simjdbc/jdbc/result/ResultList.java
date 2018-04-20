@@ -1,4 +1,4 @@
-package com.uzak.simjdbc.jdbc;
+package com.uzak.simjdbc.jdbc.result;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -24,6 +24,7 @@ public class ResultList {
 				columns.add(metaData.getColumnName(i));
 				types.put(metaData.getColumnName(i), metaData.getColumnTypeName(i));
 			}
+			System.out.println(columns);
 			while (rs.next()) {
 				Map<String, Object> row = new HashMap<>();
 				for (String column : columns) {

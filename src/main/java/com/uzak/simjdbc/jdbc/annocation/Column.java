@@ -5,6 +5,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import com.uzak.simjdbc.jdbc.autobuild.ColumnType;
+
 /**
  * 映射表字段
  * 
@@ -27,7 +29,7 @@ public @interface Column {
 	 * 
 	 * @return
 	 */
-	public Class<?> type() default String.class;
+	public ColumnType type() default ColumnType.NULL;
 
 	/**
 	 * 字段长度
@@ -51,9 +53,10 @@ public @interface Column {
 	public boolean notnull() default false;
 
 	/**
-	 * 允许重复
+	 * 不允许重复
 	 * 
 	 * @return
 	 */
-	public boolean unique() default true;
+	public boolean unique() default false;
+
 }

@@ -1,4 +1,4 @@
-package com.uzak.simjdbc.jdbc;
+package com.uzak.simjdbc.jdbc.pool;
 
 /**
  * 数据库连接对象
