@@ -1,6 +1,5 @@
 package com.uzak.simjdbc.jdbc.autobuild;
 
-import java.lang.annotation.AnnotationFormatError;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.sql.Connection;
@@ -35,7 +34,7 @@ public class InspectTable extends SuperTranstion {
 	 */
 	public void inspect(Class<? extends BaseDao> clazz) {
 		if (!clazz.isAnnotationPresent(Table.class)) {
-			throw new AnnotationFormatError("该实体类缺少@Table注解！");
+			return;
 		}
 		String tableName = getTableName(clazz);
 		String sql = "SELECT table_name FROM information_schema.tables WHERE table_schema=? AND table_name = ?";
