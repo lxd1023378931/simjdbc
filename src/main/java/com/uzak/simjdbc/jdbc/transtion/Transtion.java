@@ -26,7 +26,19 @@ public class Transtion extends SuperTranstion {
 	public Transtion() {
 	}
 
+	public void addQ(List<Q> qs) {
+		if (qs == null) {
+			return;
+		}
+		for (Q q : qs) {
+			querys.add(q);
+		}
+	}
+
 	public void addQ(Q q) {
+		if (q == null) {
+			return;
+		}
 		querys.add(q);
 		Collections.sort(querys, new Comparator<Q>() {
 			@Override

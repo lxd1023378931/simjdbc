@@ -10,8 +10,10 @@ package com.uzak.simjdbc.jdbc.autobuild;
 public class ColumnAttribute {
 	private String Field;
 	private String Type;
-	private String Null;
-	private String Key;
+	private int length;
+	private boolean NotNull;
+	private boolean Key;
+	private boolean unique;
 	private String Default;
 	private String Extra;
 
@@ -31,19 +33,11 @@ public class ColumnAttribute {
 		Type = type;
 	}
 
-	public String getNull() {
-		return Null;
-	}
-
-	public void setNull(String null1) {
-		Null = null1;
-	}
-
-	public String getKey() {
+	public boolean getKey() {
 		return Key;
 	}
 
-	public void setKey(String key) {
+	public void setKey(boolean key) {
 		Key = key;
 	}
 
@@ -61,6 +55,30 @@ public class ColumnAttribute {
 
 	public void setExtra(String extra) {
 		Extra = extra;
+	}
+
+	public boolean getUnique() {
+		return unique;
+	}
+
+	public void setUnique(boolean unique) {
+		this.unique = unique;
+	}
+
+	public int getLength() {
+		return length;
+	}
+
+	public void setLength(int length) {
+		this.length = length;
+	}
+
+	public boolean getNotNull() {
+		return NotNull;
+	}
+
+	public void setNotNull(boolean notNull) {
+		NotNull = notNull;
 	}
 
 }

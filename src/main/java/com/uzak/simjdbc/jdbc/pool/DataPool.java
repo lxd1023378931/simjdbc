@@ -133,13 +133,10 @@ public class DataPool implements DataSource {
 
 	private String getUrl(DataBase db) {
 		String url = "";
-		if("mysql".equalsIgnoreCase(db.getType())) {
+		if ("mysql".equalsIgnoreCase(db.getType())) {
 			url = "jdbc:mysql://" + db.getHost() + ":" + db.getPort() + "/" + db.getName()
-			+ "?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC&useSSL=false";
+					+ "?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC&useSSL=false";
 		}
-		// else if("oracle".equalsIgnoreCase(db.getType())) {
-		// url = "jdbc:oracle:thin:@"+db.getHost()+":"+db.getPort()+":"+db.getName();
-		// }
 		return url;
 	}
 

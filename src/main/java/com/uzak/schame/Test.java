@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.uzak.simjdbc.jdbc.annocation.Column;
 import com.uzak.simjdbc.jdbc.annocation.Table;
+import com.uzak.simjdbc.jdbc.autobuild.ColumnType;
 import com.uzak.simjdbc.jdbc.dao.BaseDao;
 
 /**
@@ -13,7 +14,7 @@ import com.uzak.simjdbc.jdbc.dao.BaseDao;
  * @mail liangxiudou@zving.com
  * @date 2018年4月4日
  */
-@Table(name = "test")
+@Table(name = "test1")
 public class Test extends BaseDao {
 	/**
 	 * ID
@@ -23,22 +24,22 @@ public class Test extends BaseDao {
 	/**
 	 * 用户名
 	 */
-	@Column
+	@Column(length = 100)
 	private String username;
 	/**
 	 * 密码
 	 */
-	@Column
+	@Column(length = 200, unique = true)
 	private String password;
 	/**
 	 * 电话
 	 */
-	@Column
+	@Column(type = ColumnType.BIGINT)
 	private String phone;
 	/**
 	 * 邮箱
 	 */
-	@Column
+	@Column(name = "e_mail")
 	private String email;
 	/**
 	 * 姓名
